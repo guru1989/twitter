@@ -13,6 +13,11 @@ jQuery(function ($) {
     lovecount=$('h3.lovecount');
     hatecount=$('h3.hatecount');
 
+
+    $("button.stop").click(function(){
+    	server.emit("stop",{text:"stop"});
+    });
+
     server.on('love-tweet', function (data) {
     	tweetList1.prepend('<li>' + data.user + ': ' + data.text + '</li>');
         loveCounter.css("width", data.love + '%'); 

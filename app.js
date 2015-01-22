@@ -25,15 +25,23 @@ var T = new Twit({
   , access_token_secret:  process.env.TWITTER_ACCESS_SECRET
 });
 
-love=0;
-hate=0;
-total=0;
+
 
 
 
 
 sio.sockets.on("connection", function(socket){
+
+    love=0;
+    hate=0;
+    total=0;
+
     stream = T.stream('statuses/filter', { track: ['love','hate'], language: 'en' });
+    
+
+    socket.on("stop",function(data){
+        stream.stop()});
+
     stream.on('tweet', function (tweet) {
         var temp=tweet.text.toLowerCase();
         if(temp.indexOf("love")!=-1){
@@ -50,7 +58,14 @@ sio.sockets.on("connection", function(socket){
         }
 
     });
+
+    socket.on('disconnect', function () {
+      stream.stop();
+    });
+
 });
+
+
 
 
 // view engine setup
