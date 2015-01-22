@@ -1,0 +1,6 @@
+jQuery(function ($) {var tweetList = $('ul.tweets');
+    loveCounter = $('li.love');
+    hateCounter = $('li.hate');
+    server.on('server-tweet', function (data) {tweetList .prepend('<li>' + data.user + ': ' + data.text + '</li>';
+    loveCounter.text(data.love + '%'); 
+    hateCounter.text(data.hate + '%'); }); });

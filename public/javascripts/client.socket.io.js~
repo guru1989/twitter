@@ -1,0 +1,25 @@
+var server_name = "http://127.0.0.1:3000/";
+var server = io.connect(server_name);
+console.log("Client: Connecting to server "+server_name);
+
+var count=0;
+var love_count=0;
+var hate_count=0;
+
+
+
+
+server.on("server-tweet", function(data) {
+
+count++;
+if (data.text.indexOf("love")>-1){
+love_count++;
+console.log("love message"+data.text);
+}
+if (data.text.indexOf("hate")>-1){
+hate_count++;
+console.log("hate message"+data.text);
+}
+});
+console.log("total tweets="+count+" love tweets="+love_count+" hate tweets="+hate_count);
+
